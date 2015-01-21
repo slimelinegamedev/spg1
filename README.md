@@ -1,2 +1,2 @@
 # spg1
-Repo for Systems Programing game project #1 
+Systems Programing game project #1 
