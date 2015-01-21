@@ -1,2 +1,2 @@
 # spg1
-Systems Programing game project #1 
+Systems Programing Game Project #1 
