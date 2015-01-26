@@ -4,14 +4,14 @@
  * 01/24/2015
  * CSCS2730
  *
- * testSDL2.c - testing SDL2 for sysprog project
- *              for creating Super Mega Awesome 
- *              Donkey Kong.
+ * testSDL2.cpp -   testing SDL2 for sysprog project
+ *                  for creating Super Mega Awesome 
+ *                  Donkey Kong.
  *
  **************************************************/
 
 //Using SDL and standard IO
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 
 //Screen dimension constants
@@ -29,12 +29,12 @@ int main( int argc, char* args[] )
     //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
-        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_Error() );
+        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
     }
     else
     {
         //Create window
-        window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_DEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN ); 
+        window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN ); 
         if( window == NULL )
         {
             printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -45,7 +45,7 @@ int main( int argc, char* args[] )
             screenSurface = SDL_GetWindowSurface( window );
 
             //Fill the surface white
-            SDL_FillRect( screensurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
+            SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
 
             //Update the surface
             SDL_UpdateWindowSurface( window );
