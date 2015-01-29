@@ -181,26 +181,57 @@ int main( int argc, char* args[] )
 				SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0x00 );
 				SDL_RenderClear( gRenderer );
 
-				//Donkey Kong Floors
-				SDL_Rect fillRect = { 20, 440, 600, 10 };
+				//Donkey Kong Floors and Ladders
+				SDL_Rect Floor1 = { 20, 440, 600, 10 };
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
-				SDL_RenderFillRect( gRenderer, &fillRect );
+				SDL_RenderFillRect( gRenderer, &Floor1 );
 
-				SDL_Rect fillRect2 = { 20, 340, 600, 10 };
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
-				SDL_RenderFillRect( gRenderer, &fillRect2 );
+				SDL_Rect Ladder1_2 = { 560, 340, 20, 100 };
+				SDL_SetRenderDrawColor( gRenderer, 0x55, 0xDD, 0xFF, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Ladder1_2 );
 
-				SDL_Rect fillRect3 = { 20, 240, 600, 10 };
+				SDL_Rect Floor2 = { 20, 340, 600, 10 };
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
-				SDL_RenderFillRect( gRenderer, &fillRect3 );
+				SDL_RenderFillRect( gRenderer, &Floor2 );
 
-				SDL_Rect fillRect4 = { 20, 140, 600, 10 };
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
-				SDL_RenderFillRect( gRenderer, &fillRect4 );
+				SDL_Rect Ladder2_3 = { 60, 240, 20, 100 };
+				SDL_SetRenderDrawColor( gRenderer, 0x55, 0xDD, 0xFF, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Ladder2_3 );
 
-				SDL_Rect fillRect5 = { 200, 60, 100, 10 };
+				SDL_Rect Floor3 = { 20, 240, 600, 10 };
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
-				SDL_RenderFillRect( gRenderer, &fillRect5 );
+				SDL_RenderFillRect( gRenderer, &Floor3 );
+                
+				SDL_Rect Ladder3_4 = { 560, 140, 20, 100 };
+				SDL_SetRenderDrawColor( gRenderer, 0x55, 0xDD, 0xFF, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Ladder3_4 );
+
+				SDL_Rect Floor4 = { 20, 140, 600, 10 };
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Floor4 );
+
+				SDL_Rect Ladder4_5 = { 240, 60, 20, 80 };
+				SDL_SetRenderDrawColor( gRenderer, 0x55, 0xDD, 0xFF, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Ladder4_5 );
+
+				SDL_Rect Floor5 = { 200, 60, 100, 10 };
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Floor5 );
+
+                //Mario block
+				SDL_Rect Mario = { 310, 405, 20, 35 };
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0x00, 0x00, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Mario );
+               
+                //Donkey Kong himself
+				SDL_Rect Donkey = { 60, 40, 60, 100 };
+				SDL_SetRenderDrawColor( gRenderer, 0xDD, 0x51, 0x00, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Donkey );
+
+                //Princess Peach (win condition)
+				SDL_Rect Peach = { 210, 25, 20, 35 };
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xAA, 0xDD, 0xFF );		
+				SDL_RenderFillRect( gRenderer, &Peach );
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
