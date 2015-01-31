@@ -9,20 +9,18 @@ int main(int argc, char ** argv)
     SDL_Event event;
     int x = 288;
     int y = 208;
-    SDL_Texture *img = NULL;
-    // init SDL
-    
-    
 
-    
+    // init SDL
+
     SDL_Init(SDL_INIT_VIDEO);
-    
+    IMG_Init(IMG_INIT_PNG);
+
     SDL_Window * window = SDL_CreateWindow("SDL2 Keyboard/Mouse events",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
     SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, 0);
-    SDL_Surface * image = SDL_LoadIMG("mario.png");
-    img = IMG_LoadTexture(renderer, "mario.png");
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer,image);
+    SDL_Surface * image = IMG_Load ("mario.png");
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer,
+        image);
     SDL_FreeSurface(image);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -49,11 +47,10 @@ int main(int argc, char ** argv)
             break;
         }
 
-        SDL_Rect dstrect = { x, y, 64, 64 };
+        SDL_Rect dstrect = { x, y, 20, 35 };
 
         SDL_RenderClear(renderer);
-        // SDL_RenderCopy(renderer, texture, NULL, &dstrect);
-        SDL_RenderCopy(renderer, img, NULL, &dstrect);
+        SDL_RenderCopy(renderer, texture, NULL, &dstrect);
         SDL_RenderPresent(renderer);
     }
 
@@ -62,6 +59,7 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    IMG_Quit();
     SDL_Quit();
 
     return 0;
