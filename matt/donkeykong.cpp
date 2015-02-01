@@ -84,9 +84,9 @@ int main(int argc, char ** argv)
         SDL_RenderFillRect( renderer, &Floor5 );
 
         //Mario block
-        SDL_Rect Mario = { 310, 405, 20, 35 };
-        SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
-        SDL_RenderFillRect( renderer, &Mario );
+        //SDL_Rect Mario = { 310, 405, 20, 35 };
+        //SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
+        //SDL_RenderFillRect( renderer, &Mario );
 
         //Donkey Kong himself
         SDL_Rect Donkey = { 60, 40, 60, 100 };
