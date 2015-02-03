@@ -14,6 +14,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+//map() function declaration
 void map(SDL_Renderer * renderer)
 {
     //Clear screen
@@ -75,7 +76,6 @@ void map(SDL_Renderer * renderer)
     //Update screen
     SDL_RenderPresent( renderer ); 
 }
-//map();
 
 int main(int argc, char ** argv)
 {
@@ -84,9 +84,6 @@ int main(int argc, char ** argv)
     SDL_Event event;
     int x = 40;
     int y = 405;
-
-    //function declaration
-    //void map();
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -122,6 +119,7 @@ int main(int argc, char ** argv)
             //case SDLK_UP:    y=y-2; break;
             //case SDLK_DOWN:  y=y+2; break;
             }
+            map(renderer);
             break;
         }
        
