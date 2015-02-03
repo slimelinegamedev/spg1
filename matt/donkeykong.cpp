@@ -69,9 +69,9 @@ void map(SDL_Renderer * renderer)
     //SDL_RenderFillRect( renderer, &Donkey );
 
     //Princess Peach (win condition)
-    SDL_Rect Peach = { 210, 25, 20, 35 };
-    SDL_SetRenderDrawColor( renderer, 0xFF, 0xAA, 0xDD, 0xFF );
-    SDL_RenderFillRect( renderer, &Peach );
+    //SDL_Rect Peach = { 210, 25, 20, 35 };
+    //SDL_SetRenderDrawColor( renderer, 0xFF, 0xAA, 0xDD, 0xFF );
+    //SDL_RenderFillRect( renderer, &Peach );
 
     //Update screen
     SDL_RenderPresent( renderer ); 
@@ -94,10 +94,13 @@ int main(int argc, char ** argv)
     SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * image = IMG_Load ("mario.png");
     SDL_Surface * image2 = IMG_Load ("donkey.png");
+    SDL_Surface * image3 = IMG_Load ("princess.png");
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
     SDL_Texture * texture2 = SDL_CreateTextureFromSurface(renderer, image2);
+    SDL_Texture * texture3 = SDL_CreateTextureFromSurface(renderer, image3);
     SDL_FreeSurface(image);
     SDL_FreeSurface(image2);
+    SDL_FreeSurface(image3);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     
@@ -128,10 +131,12 @@ int main(int argc, char ** argv)
 
         SDL_Rect dstrect = { x, y, 20, 35 };
         SDL_Rect dstrect2 = { 60, 40, 60, 100 };
+        SDL_Rect dstrect3 = { 210, 25, 20, 35 };
 
         //SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, texture, NULL, &dstrect);
         SDL_RenderCopy(renderer, texture2, NULL, &dstrect2);
+        SDL_RenderCopy(renderer, texture3, NULL, &dstrect3);
         SDL_RenderPresent(renderer);
                 
     }
