@@ -64,9 +64,9 @@ void map(SDL_Renderer * renderer)
     //SDL_RenderFillRect( renderer, &Mario );
 
     //Donkey Kong himself
-    SDL_Rect Donkey = { 60, 40, 60, 100 };
-    SDL_SetRenderDrawColor( renderer, 0xDD, 0x51, 0x00, 0xFF );
-    SDL_RenderFillRect( renderer, &Donkey );
+    //SDL_Rect Donkey = { 60, 40, 60, 100 };
+    //SDL_SetRenderDrawColor( renderer, 0xDD, 0x51, 0x00, 0xFF );
+    //SDL_RenderFillRect( renderer, &Donkey );
 
     //Princess Peach (win condition)
     SDL_Rect Peach = { 210, 25, 20, 35 };
@@ -93,15 +93,17 @@ int main(int argc, char ** argv)
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
     SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * image = IMG_Load ("mario.png");
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer,
-        image);
+    SDL_Surface * image2 = IMG_Load ("donkey.png");
+    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
+    SDL_Texture * texture2 = SDL_CreateTextureFromSurface(renderer, image2);
     SDL_FreeSurface(image);
+    SDL_FreeSurface(image2);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     
     map(renderer);
 
-    //handle events
+    //main game loop
     while (!quit)
     {
         SDL_WaitEvent(&event);
@@ -114,8 +116,8 @@ int main(int argc, char ** argv)
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym)
             {
-            case SDLK_LEFT:  x=x-2; break;
-            case SDLK_RIGHT: x=x+2; break;
+            case SDLK_LEFT:  x=x-5; break;
+            case SDLK_RIGHT: x=x+5; break;
             //case SDLK_UP:    y=y-2; break;
             //case SDLK_DOWN:  y=y+2; break;
             }
@@ -125,9 +127,11 @@ int main(int argc, char ** argv)
        
 
         SDL_Rect dstrect = { x, y, 20, 35 };
+        SDL_Rect dstrect2 = { 60, 40, 60, 100 };
 
         //SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+        SDL_RenderCopy(renderer, texture2, NULL, &dstrect2);
         SDL_RenderPresent(renderer);
                 
     }
