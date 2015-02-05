@@ -84,6 +84,7 @@ int main(int argc, char ** argv)
     SDL_Event event;
     int x = 40;
     int y = 405;
+    int ladderflag = 0;  //restrict left/right movement while on ladder
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -121,8 +122,28 @@ int main(int argc, char ** argv)
             {
             case SDLK_LEFT:  x=x-5; break;
             case SDLK_RIGHT: x=x+5; break;
-            //case SDLK_UP:    y=y-2; break;
-            //case SDLK_DOWN:  y=y+2; break;
+            case SDLK_UP:
+                if ((x<570) && (x>550))
+                {
+                    if ((y>305) && (y<415))
+                    {
+
+                             y=y-5;
+                    }
+                }
+                break;
+            case SDLK_DOWN:  
+                if ((x<570) && (x>550))
+                {
+                    if ((y>300) && (y<405))
+                    {
+
+                             y=y+5;
+                    }
+                }
+                break;
+            //case SDLK_UP:    y=y-5; break;
+            //case SDLK_DOWN:  y=y+5; break;
             }
             map(renderer);
             break;
