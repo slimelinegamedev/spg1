@@ -120,15 +120,37 @@ int main(int argc, char ** argv)
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym)
             {
-            case SDLK_LEFT:  x=x-5; break;
-            case SDLK_RIGHT: x=x+5; break;
+            case SDLK_LEFT:
+                if (ladderflag == 1)
+                {
+                    ladderflag = 0;
+                    x=x;
+                    break;
+                }
+                else
+                {
+                    x=x-5;
+                }
+                break;
+            case SDLK_RIGHT:
+                if (ladderflag == 1)
+                {
+                    ladderflag=0;
+                    x=x;
+                    break;
+                }
+                else
+                {
+                    x=x+5;
+                }
+                break;
             case SDLK_UP:
                 if ((x<570) && (x>550))
                 {
                     if ((y>305) && (y<415))
                     {
-
-                             y=y-5;
+                        ladderflag = 1;    
+                        y=y-5;
                     }
                 }
                 break;
@@ -137,8 +159,8 @@ int main(int argc, char ** argv)
                 {
                     if ((y>300) && (y<405))
                     {
-
-                             y=y+5;
+                        ladderflag = 1;
+                        y=y+5;
                     }
                 }
                 break;
@@ -146,6 +168,7 @@ int main(int argc, char ** argv)
             //case SDLK_DOWN:  y=y+5; break;
             }
             map(renderer);
+            //ladderflag = 0;
             break;
         }
        
