@@ -112,6 +112,22 @@ int main(int argc, char ** argv)
     {
         SDL_WaitEvent(&event);
 
+        if ((x<570) && (x>555))
+        {
+            if ((y>305) && (y<415))
+            {            
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=0;
+            }
+        }
+        else
+        {
+            ladderflag=0;
+        }
+
         switch(event.type)
         {
         case SDL_QUIT:
@@ -123,7 +139,6 @@ int main(int argc, char ** argv)
             case SDLK_LEFT:
                 if (ladderflag == 1)
                 {
-                    ladderflag = 0;
                     x=x;
                     break;
                 }
@@ -135,7 +150,6 @@ int main(int argc, char ** argv)
             case SDLK_RIGHT:
                 if (ladderflag == 1)
                 {
-                    ladderflag=0;
                     x=x;
                     break;
                 }
@@ -145,30 +159,19 @@ int main(int argc, char ** argv)
                 }
                 break;
             case SDLK_UP:
-                if ((x<570) && (x>550))
-                {
-                    if ((y>305) && (y<415))
-                    {
-                        ladderflag = 1;    
-                        y=y-5;
-                    }
-                }
+                        if (ladderflag == 1)
+                        {
+                            y=y-5;
+                        }
                 break;
             case SDLK_DOWN:  
-                if ((x<570) && (x>550))
-                {
-                    if ((y>300) && (y<405))
-                    {
-                        ladderflag = 1;
-                        y=y+5;
-                    }
-                }
+                        if (ladderflag == 1)
+                        {
+                            y=y+5;
+                        }
                 break;
-            //case SDLK_UP:    y=y-5; break;
-            //case SDLK_DOWN:  y=y+5; break;
             }
             map(renderer);
-            //ladderflag = 0;
             break;
         }
        
