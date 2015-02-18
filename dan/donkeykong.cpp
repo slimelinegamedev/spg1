@@ -113,17 +113,74 @@ int main(int argc, char ** argv)
         SDL_WaitEvent(&event);
 
 	//setting boundaires for ladder flag
+	if ((x<245) && (x>220))
+        {
+            if ((y>25) && (y<110))
+            {
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=1;
+            }
+        }
+
+        else
+        {
+            ladderflag=0;//deactived flag
+        }
+
+        if ((x<570) && (x>555))
+        {
+            if ((y>105) && (y<210))
+            {
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=1;
+            }
+        }
+
+        else
+        {
+            ladderflag=0;//deactived flag
+        }
+
+	if ((x<65) && (x>40))
+        {
+            if ((y>205) && (y<305))
+            {
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=1;
+            }
+        }
+
+        else
+        {
+            ladderflag=0;//deactived flag
+        }
+
 	if ((x<570) && (x>555))//x-coordinate range
         {
             if ((y>305) && (y<415))//y-coordinate range
             {
                 ladderflag=1;//activated flag
             }
+	    else 
+	    {
+		ladderflag=0;
+	    }
 	}
+
         else
-        {
-                ladderflag=0;//deactived flag
-        }
+	{
+	   ladderflag=0;
+	}
+	
      
         switch(event.type)
         {
