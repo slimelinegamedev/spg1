@@ -14,6 +14,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+void printlocation(int x, int y)
+{
+    printf("X: %d  Y: %d\n", x, y);
+}
+
 //map() function declaration
 void map(SDL_Renderer * renderer)
 {
@@ -72,8 +77,6 @@ void map(SDL_Renderer * renderer)
     //SDL_Rect Peach = { 210, 25, 20, 35 };
     //SDL_SetRenderDrawColor( renderer, 0xFF, 0xAA, 0xDD, 0xFF );
     //SDL_RenderFillRect( renderer, &Peach );
-
-    //printf("X: %d  Y: %d\n", x, y);
 
     //Update screen
     SDL_RenderPresent( renderer ); 
@@ -234,6 +237,7 @@ int main(int argc, char ** argv)
                 break;
             }
             map(renderer);
+            printlocation(x,y);
             break;
         }
        
