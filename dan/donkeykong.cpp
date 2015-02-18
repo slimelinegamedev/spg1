@@ -74,7 +74,7 @@ void map(SDL_Renderer * renderer)
     //SDL_RenderFillRect( renderer, &Peach );
 
     //Update screen
-    SDL_RenderPresent( renderer ); 
+    SDL_RenderPresent( renderer );
 }
 
 int main(int argc, char ** argv)
@@ -104,7 +104,7 @@ int main(int argc, char ** argv)
     SDL_FreeSurface(image3);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    
+
     map(renderer);
 
     //main game loop
@@ -112,43 +112,127 @@ int main(int argc, char ** argv)
     {
         SDL_WaitEvent(&event);
 
+	//setting boundaires for ladder flag
+	if ((x<245) && (x>220))
+        {
+            if ((y>25) && (y<110))
+            {
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=1;
+            }
+        }
+
+        else
+        {
+            ladderflag=0;//deactived flag
+        }
+
+        if ((x<570) && (x>555))
+        {
+            if ((y>105) && (y<210))
+            {
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=1;
+            }
+        }
+
+        else
+        {
+            ladderflag=0;//deactived flag
+        }
+
+	if ((x<65) && (x>40))
+        {
+            if ((y>205) && (y<305))
+            {
+                ladderflag=1;
+            }
+            else
+            {
+                ladderflag=1;
+            }
+        }
+
+        else
+        {
+            ladderflag=0;//deactived flag
+        }
+
+	if ((x<570) && (x>555))//x-coordinate range
+        {
+            if ((y>305) && (y<415))//y-coordinate range
+            {
+                ladderflag=1;//activated flag
+            }
+	    else 
+	    {
+		ladderflag=0;
+	    }
+	}
+
+        else
+	{
+	   ladderflag=0;
+	}
+	
+     
         switch(event.type)
         {
         case SDL_QUIT:
             quit = true;
             break;
+
+	///movement with arrow keys
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym)
             {
-            case SDLK_LEFT:  x=x-5; break;
-            case SDLK_RIGHT: x=x+5; break;
-            case SDLK_UP:
-                if ((x<570) && (x>550))
+            case SDLK_LEFT:
+                if (ladderflag == 1)//restricted movement on ladder
                 {
-                    if ((y>305) && (y<415))
-                    {
-
-                             y=y-5;
-                    }
+                    x=x;
+                    break;
+                }
+                else//no restriction
+                {
+                    x=x-5;
                 }
                 break;
-            case SDLK_DOWN:  
-                if ((x<570) && (x>550))
+            case SDLK_RIGHT:
+                if (ladderflag == 1)//restrict movement
                 {
-                    if ((y>300) && (y<405))
-                    {
-
-                             y=y+5;
-                    }
+                    x=x;
+                    break;
+                }
+                else//freedom to move
+                {
+                    x=x+5;
                 }
                 break;
-            //case SDLK_UP:    y=y-5; break;
-            //case SDLK_DOWN:  y=y+5; break;
+
+            //movement up and only while on ladder
+	    case SDLK_UP:
+                if (ladderflag == 1)
+                {
+                	y=y-5;
+                }
+                break;
+            case SDLK_DOWN:
+                if (ladderflag == 1)
+		{
+			y=y+5;
+		}
+                break;
             }
             map(renderer);
             break;
         }
-       
+
 
         SDL_Rect dstrect = { x, y, 20, 35 };
         SDL_Rect dstrect2 = { 60, 40, 60, 100 };
@@ -159,12 +243,12 @@ int main(int argc, char ** argv)
         SDL_RenderCopy(renderer, texture2, NULL, &dstrect2);
         SDL_RenderCopy(renderer, texture3, NULL, &dstrect3);
         SDL_RenderPresent(renderer);
-                
+
     }
 
     //cleanup SDL
     SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(renderer);  
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
