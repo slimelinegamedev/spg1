@@ -73,6 +73,8 @@ void map(SDL_Renderer * renderer)
     //SDL_SetRenderDrawColor( renderer, 0xFF, 0xAA, 0xDD, 0xFF );
     //SDL_RenderFillRect( renderer, &Peach );
 
+    //printf("X: %d  Y: %d\n", x, y);
+
     //Update screen
     SDL_RenderPresent( renderer ); 
 }
@@ -82,8 +84,10 @@ int main(int argc, char ** argv)
     //variables
     bool quit = false;
     SDL_Event event;
-    int x = 40;
-    int y = 405;
+    //int x = 40;     //real mario start
+    //int y = 405;    //real mario start
+    int x = 400;  //start mario testing
+    int y = 105;  //start mario testing
     int ladderflag = 0;  //restrict left/right movement while on ladder
 
     //initialize SDL
@@ -112,21 +116,79 @@ int main(int argc, char ** argv)
     {
         SDL_WaitEvent(&event);
 
-        if ((x<570) && (x>555))
-        {
-            if ((y>305) && (y<415))
-            {            
-                ladderflag=1;
+        //while (ladderflag==0)
+        //{
+            if ((x<245) && (x>220))
+            {
+                if ((y>25) && (y<110))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
             }
             else
             {
                 ladderflag=0;
             }
-        }
-        else
-        {
-            ladderflag=0;
-        }
+
+            /*
+            if ((x<570) && (x>555))
+            {
+                if ((y>105) && (y<210))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
+            }
+            else
+            {
+                ladderflag=0;
+            }
+            */
+    
+            /*
+            if ((x<65) && (x>40))
+            {
+                if ((y>205) && (y<310))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
+            }
+            else
+            {
+                ladderflag=0;
+            }
+            */
+
+            /*
+            if ((x<570) && (x>555))
+            {
+                if ((y>305) && (y<415))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
+            }
+            else
+            {
+                ladderflag=0;
+            }
+            */
+            
+        //}
 
         switch(event.type)
         {
