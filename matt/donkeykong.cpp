@@ -109,9 +109,6 @@ int main(int argc, char ** argv)
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
     SDL_Texture * texture2 = SDL_CreateTextureFromSurface(renderer, image2);
     SDL_Texture * texture3 = SDL_CreateTextureFromSurface(renderer, image3);
-    SDL_FreeSurface(image);
-    SDL_FreeSurface(image2);
-    SDL_FreeSurface(image3);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     
@@ -267,9 +264,12 @@ int main(int argc, char ** argv)
                 
     }
 
-
+    //cleanup parts not used for win message
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer); 
+    SDL_FreeSurface(image);
+    SDL_FreeSurface(image2);
+    SDL_FreeSurface(image3);
 
     //win message
     SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
@@ -283,8 +283,7 @@ int main(int argc, char ** argv)
     //cleanup SDL
     SDL_DestroyTexture(textureend);
     SDL_DestroyRenderer(renderer2);
-    //SDL_DestroyTexture(texture);
-    //SDL_DestroyRenderer(renderer);  
+    SDL_FreeSurface(imageend);
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
