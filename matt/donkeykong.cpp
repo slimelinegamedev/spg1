@@ -15,10 +15,10 @@
 #include <SDL2/SDL_image.h>
 
 //printlocation() function declaration
-void printlocation(int x, int y, int winflag, int ladderflag)
+void printlocation(int x, int y, int ladderflag)
 {
     printf("X: %d  Y: %d\n", x, y);
-    printf("winflag: %d  ladderflag: %d\n", winflag, ladderflag);
+    printf("ladderflag: %d\n", ladderflag);
 }
 
 //map() function declaration
@@ -144,7 +144,7 @@ int main(int argc, char ** argv)
             {
                 if (x==230)
                 {
-                    winflag = 1;
+                    quit = true;
                 }
             }
 
@@ -207,10 +207,7 @@ int main(int argc, char ** argv)
         switch(event.type)
         {
         case SDL_QUIT:
-            if (winflag == 1)
-                {
-                    quit = true;
-                }
+            quit = true;
             break;
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym)
@@ -251,7 +248,7 @@ int main(int argc, char ** argv)
                 break;
             }
             map(renderer);
-            printlocation(x,y,winflag,ladderflag);
+            printlocation(x,y,ladderflag);
             break;
 
         }
