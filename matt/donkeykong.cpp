@@ -287,6 +287,7 @@ int main(int argc, char ** argv)
 
     //mario gif sequence
     int counter = 0;
+    int delay = 100;
     while (counter < 10)
     {
         //A sequence
@@ -295,7 +296,7 @@ int main(int argc, char ** argv)
         SDL_Texture * textureA = SDL_CreateTextureFromSurface(rendererA, imageframe0);
         SDL_RenderCopy(rendererA, textureA, NULL, NULL);
         SDL_RenderPresent(rendererA);
-        SDL_Delay(100);
+        SDL_Delay(delay);
         SDL_DestroyTexture(textureA);
         SDL_DestroyRenderer(rendererA);
         SDL_FreeSurface(imageframe0);
@@ -306,7 +307,7 @@ int main(int argc, char ** argv)
         SDL_Texture * textureB = SDL_CreateTextureFromSurface(rendererB, imageframe1);
         SDL_RenderCopy(rendererB, textureB, NULL, NULL);
         SDL_RenderPresent(rendererB);
-        SDL_Delay(100);
+        SDL_Delay(delay);
         SDL_DestroyTexture(textureB);
         SDL_DestroyRenderer(rendererB);
         SDL_FreeSurface(imageframe1);
@@ -317,7 +318,7 @@ int main(int argc, char ** argv)
         SDL_Texture * textureC = SDL_CreateTextureFromSurface(rendererC, imageframe2);
         SDL_RenderCopy(rendererC, textureC, NULL, NULL);
         SDL_RenderPresent(rendererC);
-        SDL_Delay(100);
+        SDL_Delay(delay);
         SDL_DestroyTexture(textureC);
         SDL_DestroyRenderer(rendererC);
         SDL_FreeSurface(imageframe2);
@@ -328,7 +329,7 @@ int main(int argc, char ** argv)
         SDL_Texture * textureD = SDL_CreateTextureFromSurface(rendererD, imageframe3);
         SDL_RenderCopy(rendererD, textureD, NULL, NULL);
         SDL_RenderPresent(rendererD);
-        SDL_Delay(100);
+        SDL_Delay(delay);
         SDL_DestroyTexture(textureD);
         SDL_DestroyRenderer(rendererD);
         SDL_FreeSurface(imageframe3);
@@ -339,7 +340,7 @@ int main(int argc, char ** argv)
         SDL_Texture * textureE = SDL_CreateTextureFromSurface(rendererE, imageframe4);
         SDL_RenderCopy(rendererE, textureE, NULL, NULL);
         SDL_RenderPresent(rendererE);
-        SDL_Delay(100);
+        SDL_Delay(delay);
         SDL_DestroyTexture(textureE);
         SDL_DestroyRenderer(rendererE);
         SDL_FreeSurface(imageframe4);
