@@ -14,6 +14,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+//printlocation() function declaration
+void printlocation(int x, int y, int ladderflag)
+{
+    printf("X: %d  Y: %d\n", x, y);
+    printf("ladderflag: %d\n", ladderflag);
+}
+
 //map() function declaration
 void map(SDL_Renderer * renderer)
 {
@@ -74,7 +81,7 @@ void map(SDL_Renderer * renderer)
     //SDL_RenderFillRect( renderer, &Peach );
 
     //Update screen
-    SDL_RenderPresent( renderer );
+    SDL_RenderPresent( renderer ); 
 }
 
 int main(int argc, char ** argv)
@@ -82,8 +89,10 @@ int main(int argc, char ** argv)
     //variables
     bool quit = false;
     SDL_Event event;
-    int x = 40;
-    int y = 405;
+    //int x = 40;     //real mario start
+    //int y = 405;    //real mario start
+    int x = 400;  //start mario testing
+    int y = 105;  //start mario testing
     int ladderflag = 0;  //restrict left/right movement while on ladder
 
     //initialize SDL
@@ -99,12 +108,9 @@ int main(int argc, char ** argv)
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
     SDL_Texture * texture2 = SDL_CreateTextureFromSurface(renderer, image2);
     SDL_Texture * texture3 = SDL_CreateTextureFromSurface(renderer, image3);
-    SDL_FreeSurface(image);
-    SDL_FreeSurface(image2);
-    SDL_FreeSurface(image3);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-
+    
     map(renderer);
 
     //main game loop
@@ -112,74 +118,138 @@ int main(int argc, char ** argv)
     {
         SDL_WaitEvent(&event);
 
-	//setting boundaires for ladder flag
-	if ((x<570) && (x>555))//x-coordinate range
-        {
-            if ((y>305) && (y<415))//y-coordinate range
+        //while (ladderflag==0)
+        //{
+            if ((x<245) && (x>220))
             {
-                ladderflag=1;//activated flag
+                if ((y>25) && (y<110))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
             }
             else
             {
-                ladderflag=0;//deactived flag
+                ladderflag=0;
             }
-        }
-        else
-        {
-            ladderflag=0;//deactived flag
-        }
+
+            //win condition
+            if (y==25)
+            {
+                if (x==230)
+                {
+                    quit = true;
+                }
+            }
+
+            /*
+            if ((x<570) && (x>555))
+            {
+                if ((y>105) && (y<210))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
+            }
+            else
+            {
+                ladderflag=0;
+            }
+            */
+    
+            /*
+            if ((x<65) && (x>40))
+            {
+                if ((y>205) && (y<310))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
+            }
+            else
+            {
+                ladderflag=0;
+            }
+            */
+
+            /*
+            if ((x<570) && (x>555))
+            {
+                if ((y>305) && (y<415))
+                {            
+                    ladderflag=1;
+                }
+                else
+                {
+                    ladderflag = 0;
+                }
+            }
+            else
+            {
+                ladderflag=0;
+            }
+            */
+            
+        //}
 
         switch(event.type)
         {
         case SDL_QUIT:
             quit = true;
             break;
-
-	///movement with arrow keys
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym)
             {
             case SDLK_LEFT:
-                if (ladderflag == 1)//restricted movement on ladder
+                if (ladderflag == 1)
                 {
                     x=x;
                     break;
                 }
-                else//no restriction
+                else
                 {
                     x=x-5;
                 }
                 break;
             case SDLK_RIGHT:
-                if (ladderflag == 1)//restrict movement
+                if (ladderflag == 1)
                 {
                     x=x;
                     break;
                 }
-                else//freedom to move
+                else
                 {
                     x=x+5;
                 }
                 break;
-
-            //movement up and only while on ladder
-	    case SDLK_UP:
-                if (ladderflag == 1)
-                {
-                	y=y-5;
-                }
+            case SDLK_UP:
+                        if (ladderflag == 1)
+                        {
+                            y=y-5;
+                        }
                 break;
-            case SDLK_DOWN:
-                if (ladderflag == 1)
-		{
-			y=y+5;
-		}
+            case SDLK_DOWN:  
+                        if (ladderflag == 1)
+                        {
+                            y=y+5;
+                        }
                 break;
             }
             map(renderer);
+            printlocation(x,y,ladderflag);
             break;
-        }
 
+        }
+       
 
         SDL_Rect dstrect = { x, y, 20, 35 };
         SDL_Rect dstrect2 = { 60, 40, 60, 100 };
@@ -190,12 +260,29 @@ int main(int argc, char ** argv)
         SDL_RenderCopy(renderer, texture2, NULL, &dstrect2);
         SDL_RenderCopy(renderer, texture3, NULL, &dstrect3);
         SDL_RenderPresent(renderer);
-
+                
     }
 
-    //cleanup SDL
+    //cleanup parts not used for win message
     SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(renderer); 
+    SDL_FreeSurface(image);
+    SDL_FreeSurface(image2);
+    SDL_FreeSurface(image3);
+
+    //win message
+    SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
+    SDL_Surface * imageend = SDL_LoadBMP("end.bmp");
+    SDL_Texture * textureend = SDL_CreateTextureFromSurface(renderer2, imageend);
+    SDL_RenderCopy(renderer2, textureend, NULL, NULL);
+    SDL_RenderPresent(renderer2);
+
+    SDL_Delay(2000);
+
+    //cleanup SDL
+    SDL_DestroyTexture(textureend);
+    SDL_DestroyRenderer(renderer2);
+    SDL_FreeSurface(imageend);
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();

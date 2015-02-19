@@ -94,7 +94,6 @@ int main(int argc, char ** argv)
     int x = 400;  //start mario testing
     int y = 105;  //start mario testing
     int ladderflag = 0;  //restrict left/right movement while on ladder
-    int winflag = 0;
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -284,6 +283,70 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(textureend);
     SDL_DestroyRenderer(renderer2);
     SDL_FreeSurface(imageend);
+
+
+    //mario gif sequence
+    int counter = 0;
+    while (counter < 10)
+    {
+        //A sequence
+        SDL_Renderer * rendererA = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe0 = IMG_Load ("marioframe/frame_000.png");
+        SDL_Texture * textureA = SDL_CreateTextureFromSurface(rendererA, imageframe0);
+        SDL_RenderCopy(rendererA, textureA, NULL, NULL);
+        SDL_RenderPresent(rendererA);
+        SDL_Delay(100);
+        SDL_DestroyTexture(textureA);
+        SDL_DestroyRenderer(rendererA);
+        SDL_FreeSurface(imageframe0);
+
+        //B sequence
+        SDL_Renderer * rendererB = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe1 = IMG_Load ("marioframe/frame_001.png");
+        SDL_Texture * textureB = SDL_CreateTextureFromSurface(rendererB, imageframe1);
+        SDL_RenderCopy(rendererB, textureB, NULL, NULL);
+        SDL_RenderPresent(rendererB);
+        SDL_Delay(100);
+        SDL_DestroyTexture(textureB);
+        SDL_DestroyRenderer(rendererB);
+        SDL_FreeSurface(imageframe1);
+
+        //C sequence
+        SDL_Renderer * rendererC = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe2 = IMG_Load ("marioframe/frame_002.png");
+        SDL_Texture * textureC = SDL_CreateTextureFromSurface(rendererC, imageframe2);
+        SDL_RenderCopy(rendererC, textureC, NULL, NULL);
+        SDL_RenderPresent(rendererC);
+        SDL_Delay(100);
+        SDL_DestroyTexture(textureC);
+        SDL_DestroyRenderer(rendererC);
+        SDL_FreeSurface(imageframe2);
+
+        //D sequence
+        SDL_Renderer * rendererD = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe3 = IMG_Load ("marioframe/frame_003.png");
+        SDL_Texture * textureD = SDL_CreateTextureFromSurface(rendererD, imageframe3);
+        SDL_RenderCopy(rendererD, textureD, NULL, NULL);
+        SDL_RenderPresent(rendererD);
+        SDL_Delay(100);
+        SDL_DestroyTexture(textureD);
+        SDL_DestroyRenderer(rendererD);
+        SDL_FreeSurface(imageframe3);
+
+        //E sequence
+        SDL_Renderer * rendererE = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe4 = IMG_Load ("marioframe/frame_004.png");
+        SDL_Texture * textureE = SDL_CreateTextureFromSurface(rendererE, imageframe4);
+        SDL_RenderCopy(rendererE, textureE, NULL, NULL);
+        SDL_RenderPresent(rendererE);
+        SDL_Delay(100);
+        SDL_DestroyTexture(textureE);
+        SDL_DestroyRenderer(rendererE);
+        SDL_FreeSurface(imageframe4);
+
+        counter++;
+    }
+
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
