@@ -140,6 +140,7 @@ int main(int argc, char ** argv)
                 ladderflag=0;
             }
 
+            //win condition
             if (y==25)
             {
                 if (x==230)
@@ -266,9 +267,24 @@ int main(int argc, char ** argv)
                 
     }
 
-    //cleanup SDL
+
     SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(renderer);  
+    SDL_DestroyRenderer(renderer); 
+
+    //win message
+    SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
+    SDL_Surface * imageend = SDL_LoadBMP("end.bmp");
+    SDL_Texture * textureend = SDL_CreateTextureFromSurface(renderer2, imageend);
+    SDL_RenderCopy(renderer2, textureend, NULL, NULL);
+    SDL_RenderPresent(renderer2);
+
+    SDL_Delay(2000);
+
+    //cleanup SDL
+    SDL_DestroyTexture(textureend);
+    SDL_DestroyRenderer(renderer2);
+    //SDL_DestroyTexture(texture);
+    //SDL_DestroyRenderer(renderer);  
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
