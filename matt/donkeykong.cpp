@@ -118,6 +118,7 @@ int main(int argc, char ** argv)
     {
         SDL_WaitEvent(&event);
 
+        map(renderer);
         //while (ladderflag==0)
         //{
             if ((x<245) && (x>220))
@@ -287,7 +288,7 @@ int main(int argc, char ** argv)
 
     //mario gif sequence
     int counter = 0;
-    int delay = 100;
+    int delay = 50;
     while (counter < 10)
     {
         //A sequence

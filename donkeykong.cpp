@@ -118,6 +118,7 @@ int main(int argc, char ** argv)
     {
         SDL_WaitEvent(&event);
 
+        map(renderer);
         //while (ladderflag==0)
         //{
             if ((x<245) && (x>220))
