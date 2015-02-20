@@ -138,6 +138,17 @@ int main(int argc, char ** argv)
                 ladderflag=0;
             }
 
+            //floorflag check
+
+            if ((y==405) ^ (y==305) ^ (y==205) ^ (y==105) ^ (y==25))
+            {
+                floorflag=1;
+            }
+            else
+            {
+                floorflag=0;
+            }
+
             //win condition
             if (y==25)
             {
