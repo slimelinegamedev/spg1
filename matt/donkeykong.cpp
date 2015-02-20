@@ -299,7 +299,7 @@ int main(int argc, char ** argv)
     SDL_DestroyRenderer(renderer2);
     SDL_FreeSurface(imageend);
 
-
+    /*
     //mario gif sequence
     int counter = 0;
     int delay = 50;
@@ -362,6 +362,7 @@ int main(int argc, char ** argv)
 
         counter++;
     }
+    */
 
     SDL_DestroyWindow(window);
     IMG_Quit();
