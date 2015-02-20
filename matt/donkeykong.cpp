@@ -15,10 +15,10 @@
 #include <SDL2/SDL_image.h>
 
 //printlocation() function declaration
-void printlocation(int x, int y, int ladderflag)
+void printlocation(int x, int y, int ladderflag, int floorflag)
 {
     printf("X: %d  Y: %d\n", x, y);
-    printf("ladderflag: %d\n", ladderflag);
+    printf("ladderflag: %d  floorflag: %d\n", ladderflag, floorflag);
 }
 
 //map() function declaration
@@ -94,6 +94,7 @@ int main(int argc, char ** argv)
     int x = 400;  //start mario testing
     int y = 105;  //start mario testing
     int ladderflag = 0;  //restrict left/right movement while on ladder
+    int floorflag = 1;   //stating whether mario is on a floor, to be used in conjunction with ladderflag
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -246,7 +247,7 @@ int main(int argc, char ** argv)
                 break;
             }
             map(renderer);
-            printlocation(x,y,ladderflag);
+            printlocation(x,y,ladderflag, floorflag);
             break;
 
         }
