@@ -223,7 +223,7 @@ int main(int argc, char ** argv)
             switch (event.key.keysym.sym)
             {
             case SDLK_LEFT:
-                if (ladderflag == 1) && (floorflag == 0)
+                if ((ladderflag == 1) && (floorflag == 0))
                 {
                     x=x;
                     break;
