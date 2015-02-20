@@ -312,7 +312,7 @@ int main(int argc, char ** argv)
     SDL_DestroyRenderer(renderer3);
     SDL_FreeSurface(imagetest1);
 
-    //win message part 2
+    //win message part 3
     SDL_Renderer * renderer4 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest2 = SDL_LoadBMP("test2.bmp");
     SDL_Texture * texturetest2 = SDL_CreateTextureFromSurface(renderer4, imagetest2);
@@ -323,7 +323,7 @@ int main(int argc, char ** argv)
     SDL_DestroyRenderer(renderer4);
     SDL_FreeSurface(imagetest2);
 
-    //win message part 2
+    //win message part 4
     SDL_Renderer * renderer5 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest3 = SDL_LoadBMP("test3.bmp");
     SDL_Texture * texturetest3 = SDL_CreateTextureFromSurface(renderer5, imagetest3);
@@ -334,7 +334,7 @@ int main(int argc, char ** argv)
     SDL_DestroyRenderer(renderer5);
     SDL_FreeSurface(imagetest3);
 
-    //win message part 2
+    //win message part 5
     SDL_Renderer * renderer6 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest4 = SDL_LoadBMP("test4.bmp");
     SDL_Texture * texturetest4 = SDL_CreateTextureFromSurface(renderer6, imagetest4);
