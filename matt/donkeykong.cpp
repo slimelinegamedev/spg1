@@ -266,6 +266,8 @@ int main(int argc, char ** argv)
 
     //cleanup parts not used for win message
     SDL_DestroyTexture(texture);
+    SDL_DestroyTexture(texture2);
+    SDL_DestroyTexture(texture3);
     SDL_DestroyRenderer(renderer); 
     SDL_FreeSurface(image);
     SDL_FreeSurface(image2);
