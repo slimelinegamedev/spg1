@@ -120,99 +120,95 @@ int main(int argc, char ** argv)
         SDL_WaitEvent(&event);
 
         map(renderer);
-        //while (ladderflag==0)
-        //{
-            if ((x<245) && (x>220))
-            {
-                if ((y>25) && (y<110))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
+
+        if ((x<245) && (x>220))
+        {
+            if ((y>25) && (y<110))
+            {            
+                ladderflag=1;
             }
             else
             {
-                ladderflag=0;
+                ladderflag = 0;
             }
+        }
+        else
+        {
+            ladderflag=0;
+        }
 
-            //floorflag check
+        //floorflag check
+        if ((y==405) ^ (y==305) ^ (y==205) ^ (y==105) ^ (y==25))
+        {
+            floorflag=1;
+        }
+        else
+        {
+            floorflag=0;
+        }
 
-            if ((y==405) ^ (y==305) ^ (y==205) ^ (y==105) ^ (y==25))
+        //win condition
+        if (y==25)
+        {
+            if (x==230)
             {
-                floorflag=1;
+                quit = true;
+            }
+        }
+
+        /*
+        if ((x<570) && (x>555))
+        {
+            if ((y>105) && (y<210))
+            {            
+                ladderflag=1;
             }
             else
             {
-                floorflag=0;
+                ladderflag = 0;
             }
+        }
+        else
+        {
+            ladderflag=0;
+        }
+        */
 
-            //win condition
-            if (y==25)
-            {
-                if (x==230)
-                {
-                    quit = true;
-                }
-            }
-
-            /*
-            if ((x<570) && (x>555))
-            {
-                if ((y>105) && (y<210))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
+        /*
+        if ((x<65) && (x>40))
+        {
+            if ((y>205) && (y<310))
+            {            
+                ladderflag=1;
             }
             else
             {
-                ladderflag=0;
+                ladderflag = 0;
             }
-            */
-    
-            /*
-            if ((x<65) && (x>40))
-            {
-                if ((y>205) && (y<310))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
-            }
-            else
-            {
-                ladderflag=0;
-            }
-            */
+        }
+        else
+        {
+            ladderflag=0;
+        }
+        */
 
-            /*
-            if ((x<570) && (x>555))
-            {
-                if ((y>305) && (y<415))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
+        /*
+        if ((x<570) && (x>555))
+        {
+            if ((y>305) && (y<415))
+            {            
+                ladderflag=1;
             }
             else
             {
-                ladderflag=0;
+                ladderflag = 0;
             }
-            */
-            
-        //}
+        }
+        else
+        {
+            ladderflag=0;
+        }
+        */  
 
         switch(event.type)
         {
