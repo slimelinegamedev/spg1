@@ -233,6 +233,26 @@ int main(int argc, char ** argv)
             ladderflag=0;
         }
 
+        //suicide prevention
+        if (y==25)
+        {   
+            if (x>280)
+            {
+                x=280;   
+            }
+        }
+        else
+        {
+            if (x<20)
+            {
+                x=20;
+            }
+            if (x>600)
+            {
+                x=600;
+            }
+        }
+
         switch(event.type)
         {
         case SDL_QUIT:
