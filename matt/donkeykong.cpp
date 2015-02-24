@@ -89,12 +89,35 @@ int main(int argc, char ** argv)
     //variables
     bool quit = false;
     SDL_Event event;
-    //int x = 40;     //real mario start
-    //int y = 405;    //real mario start
-    int x = 400;  //start mario testing
-    int y = 105;  //start mario testing
-    int ladderflag = 0;  //restrict left/right movement while on ladder
-    int floorflag = 1;   //stating whether mario is on a floor, to be used in conjunction with ladderflag
+    int x = 40;     //real mario start
+    int y = 405;    //real mario start
+    //int x = 400;  //start mario testing
+    //int y = 105;  //start mario testing
+    //int ladderflag = 0;  //restrict left/right movement while on ladder
+    //int floorflag = 1;   //stating whether mario is on a floor, to be used in conjunction with ladderflag
+
+    struct ladder {
+        int xleft;
+        int xright;
+        int ytop;
+        int ybottom;
+        int ladderflag;
+    };
+    
+    int i;
+    struct ladder ladarr[2];    //laddar array
+    for (i=0;i<2;i++)
+    {
+        ladarr[0].xleft=555;
+        ladarr[0].xright=570;
+        laddar[0].ytop=305;
+        laddar[0].ybottom=415;
+
+        ladarr[1].xleft=40;
+        ladarr[1].xright=65;
+        ladarr[1].ytop=205;
+        ladarr[1].ybottom=310;
+    }
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -121,6 +144,7 @@ int main(int argc, char ** argv)
 
         map(renderer);
 
+        /*
         if ((x<245) && (x>220))
         {
             if ((y>25) && (y<110))
@@ -136,6 +160,7 @@ int main(int argc, char ** argv)
         {
             ladderflag=0;
         }
+        */
 
         //floorflag check
         if ((y==405) ^ (y==305) ^ (y==205) ^ (y==105) ^ (y==25))
@@ -192,7 +217,6 @@ int main(int argc, char ** argv)
         }
         */
 
-        /*
         if ((x<570) && (x>555))
         {
             if ((y>305) && (y<415))
@@ -208,7 +232,6 @@ int main(int argc, char ** argv)
         {
             ladderflag=0;
         }
-        */  
 
         switch(event.type)
         {
@@ -254,7 +277,7 @@ int main(int argc, char ** argv)
                 break;
             }
             map(renderer);
-            printlocation(x,y,ladderflag, floorflag);
+            //printlocation(x,y,ladderflag, floorflag);
             break;
 
         }
@@ -280,7 +303,7 @@ int main(int argc, char ** argv)
     SDL_FreeSurface(image);
     SDL_FreeSurface(image2);
     SDL_FreeSurface(image3);
-
+/*
     //win message
     SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imageend = SDL_LoadBMP("end.bmp");
@@ -294,9 +317,9 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(textureend);
     SDL_DestroyRenderer(renderer2);
     SDL_FreeSurface(imageend);
+*/
 
-
-
+/*
     //win message part 2
     SDL_Renderer * renderer3 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest1 = SDL_LoadBMP("test1.bmp");
@@ -319,7 +342,7 @@ int main(int argc, char ** argv)
     SDL_DestroyRenderer(renderer4);
     SDL_FreeSurface(imagetest2);
 
-    //win message part 4
+    //win message part 4 (occasionally skips)
     SDL_Renderer * renderer5 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest3 = SDL_LoadBMP("test3.bmp");
     SDL_Texture * texturetest3 = SDL_CreateTextureFromSurface(renderer5, imagetest3);
@@ -340,7 +363,9 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(texturetest4);
     SDL_DestroyRenderer(renderer6);
     SDL_FreeSurface(imagetest4);
+*/
 
+/*
     //mario gif sequence
     int counter = 0;
     int delay = 50;
@@ -403,6 +428,7 @@ int main(int argc, char ** argv)
 
         counter++;
     }
+    */
 
     SDL_DestroyWindow(window);
     IMG_Quit();
