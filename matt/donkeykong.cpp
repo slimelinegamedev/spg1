@@ -18,7 +18,7 @@
 void printlocation(int x, int y, int ladderflag, int floorflag)
 {
     printf("X: %d  Y: %d\n", x, y);
-    printf("ladderflag: %d  floorflag: %d\n", ladderflag, floorflag);
+    printf("ladderflag: %d  arrayflag: %d\n", ladderflag, floorflag);
 }
 
 //map() function declaration
@@ -93,7 +93,7 @@ int main(int argc, char ** argv)
     int y = 405;    //real mario start
     //int x = 400;  //start mario testing
     //int y = 105;  //start mario testing
-    //int ladderflag = 0;  //restrict left/right movement while on ladder
+    int ladderflag = 0;  //restrict left/right movement while on ladder
     //int floorflag = 1;   //stating whether mario is on a floor, to be used in conjunction with ladderflag
 
     struct ladder {
@@ -106,18 +106,18 @@ int main(int argc, char ** argv)
     
     int i;
     struct ladder ladarr[2];    //laddar array
-    for (i=0;i<2;i++)
-    {
-        ladarr[0].xleft=555;
-        ladarr[0].xright=570;
-        laddar[0].ytop=305;
-        laddar[0].ybottom=415;
 
-        ladarr[1].xleft=40;
-        ladarr[1].xright=65;
-        ladarr[1].ytop=205;
-        ladarr[1].ybottom=310;
-    }
+    ladarr[0].xleft=555;
+    ladarr[0].xright=570;
+    ladarr[0].ytop=305;
+    ladarr[0].ybottom=415;
+    ladarr[0].ladderflag=0;
+
+    ladarr[1].xleft=40;
+    ladarr[1].xright=65;
+    ladarr[1].ytop=205;
+    ladarr[1].ybottom=310;
+    ladarr[1].ladderflag=0;
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -162,6 +162,7 @@ int main(int argc, char ** argv)
         }
         */
 
+        /*
         //floorflag check
         if ((y==405) ^ (y==305) ^ (y==205) ^ (y==105) ^ (y==25))
         {
@@ -171,6 +172,7 @@ int main(int argc, char ** argv)
         {
             floorflag=0;
         }
+        */
 
         //win condition
         if (y==25)
@@ -217,20 +219,29 @@ int main(int argc, char ** argv)
         }
         */
 
-        if ((x<570) && (x>555))
+        for(i=0;i<2;i++)
         {
-            if ((y>305) && (y<415))
-            {            
-                ladderflag=1;
+            if (((x+5)<ladarr[i].xright) && ((x+5)>ladarr[i].xleft))
+            {
+                if ((y>ladarr[i].ytop) && (y<ladarr[i].ybottom))
+                {            
+                    ladarr[i].ladderflag=1;
+                    printf("Ladder flag is affirmative!!!\n");
+                    ladderflag=i;
+                }
+                else
+                {
+                    ladarr[i].ladderflag = 0;
+                    ladderflag=-1;
+                    printf("Broken!\n");
+                }
             }
             else
             {
-                ladderflag = 0;
+                ladarr[i].ladderflag=0;
+                ladderflag=-1;
+                printf("Broken!\n");
             }
-        }
-        else
-        {
-            ladderflag=0;
         }
 
         //suicide prevention
@@ -262,7 +273,7 @@ int main(int argc, char ** argv)
             switch (event.key.keysym.sym)
             {
             case SDLK_LEFT:
-                if ((ladderflag == 1) && (floorflag == 0))
+                if ((ladderflag != -1)) //&& (floorflag == 0))
                 {
                     x=x;
                     break;
@@ -273,7 +284,7 @@ int main(int argc, char ** argv)
                 }
                 break;
             case SDLK_RIGHT:
-                if ((ladderflag == 1) && (floorflag == 0))
+                if ((ladderflag != -1)) // && (floorflag == 0))
                 {
                     x=x;
                     break;
@@ -284,21 +295,21 @@ int main(int argc, char ** argv)
                 }
                 break;
             case SDLK_UP:
-                        if (ladderflag == 1)
+                        if (ladderflag != -1)
                         {
                             y=y-5;
                         }
                 break;
             case SDLK_DOWN:  
-                        if (ladderflag == 1)
+                        if (ladderflag != -1)
                         {
                             y=y+5;
                         }
                 break;
             }
             map(renderer);
-            //printlocation(x,y,ladderflag, floorflag);
-            break;
+            printlocation(x,y,ladderflag, ladarr[i].ladderflag);
+            //break;
 
         }
        
