@@ -15,10 +15,10 @@
 #include <SDL2/SDL_image.h>
 
 //printlocation() function declaration
-void printlocation(int x, int y, int ladderflag)
+void printlocation(int x, int y, int ladderflag, int floorflag)
 {
     printf("X: %d  Y: %d\n", x, y);
-    printf("ladderflag: %d\n", ladderflag);
+    printf("ladderflag: %d  arrayflag: %d\n", ladderflag, floorflag);
 }
 
 //map() function declaration
@@ -65,23 +65,8 @@ void map(SDL_Renderer * renderer)
     SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
     SDL_RenderFillRect( renderer, &Floor5 );
 
-    //Mario block
-    //SDL_Rect Mario = { 310, 405, 20, 35 };
-    //SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
-    //SDL_RenderFillRect( renderer, &Mario );
-
-    //Donkey Kong himself
-    //SDL_Rect Donkey = { 60, 40, 60, 100 };
-    //SDL_SetRenderDrawColor( renderer, 0xDD, 0x51, 0x00, 0xFF );
-    //SDL_RenderFillRect( renderer, &Donkey );
-
-    //Princess Peach (win condition)
-    //SDL_Rect Peach = { 210, 25, 20, 35 };
-    //SDL_SetRenderDrawColor( renderer, 0xFF, 0xAA, 0xDD, 0xFF );
-    //SDL_RenderFillRect( renderer, &Peach );
-
     //Update screen
-    SDL_RenderPresent( renderer ); 
+    SDL_RenderPresent( renderer );
 }
 
 int main(int argc, char ** argv)
@@ -91,9 +76,32 @@ int main(int argc, char ** argv)
     SDL_Event event;
     //int x = 40;     //real mario start
     //int y = 405;    //real mario start
-    int x = 400;  //start mario testing
-    int y = 105;  //start mario testing
+    int x = 280;     //real mario start
+    int y = 25;    //real mario start
     int ladderflag = 0;  //restrict left/right movement while on ladder
+
+    struct ladder {
+        int xleft;
+        int xright;
+        int ytop;
+        int ybottom;
+        int ladderflag;
+    };
+
+    int i;
+    struct ladder ladarr[2];    //laddar array
+
+    ladarr[0].xleft=555;
+    ladarr[0].xright=570;
+    ladarr[0].ytop=305;
+    ladarr[0].ybottom=415;
+    ladarr[0].ladderflag=0;
+
+    ladarr[1].xleft=40;
+    ladarr[1].xright=65;
+    ladarr[1].ytop=205;
+    ladarr[1].ybottom=310;
+    ladarr[1].ladderflag=0;
 
     //initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
@@ -110,7 +118,7 @@ int main(int argc, char ** argv)
     SDL_Texture * texture3 = SDL_CreateTextureFromSurface(renderer, image3);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    
+
     map(renderer);
 
     //main game loop
@@ -119,95 +127,47 @@ int main(int argc, char ** argv)
         SDL_WaitEvent(&event);
 
         map(renderer);
-        //while (ladderflag==0)
-        //{
-            if ((x<245) && (x>220))
-            {
-                if ((y>25) && (y<110))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
-            }
-            else
-            {
-                ladderflag=0;
-            }
 
-            //win condition
-            if (y==25)
+        for(i=0;i<2;i++)
+        {
+            if (((x+5)<ladarr[i].xright) && ((x+5)>ladarr[i].xleft))
             {
-                if (x==230)
+                if ((y>ladarr[i].ytop) && (y<ladarr[i].ybottom))
                 {
-                    quit = true;
+                    ladarr[i].ladderflag=1;
+                    printf("Ladder flag is affirmative!!!\n");
+                    ladderflag=i;
+                }
+                else
+                {
+                    ladarr[i].ladderflag = 0;
+                    ladderflag=-1;
+                    printf("Broken!\n");
                 }
             }
+            else
+            {
+                ladarr[i].ladderflag=0;
+                ladderflag=-1;
+                printf("Broken!\n");
+            }
+        }
 
-            /*
-            if ((x<570) && (x>555))
+        //win condition
+        if (y==25)
+        {
+            if (x==230)
             {
-                if ((y>105) && (y<210))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
+                quit = true;
             }
-            else
-            {
-                ladderflag=0;
-            }
-            */
-    
-            /*
-            if ((x<65) && (x>40))
-            {
-                if ((y>205) && (y<310))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
-            }
-            else
-            {
-                ladderflag=0;
-            }
-            */
-
-            /*
-            if ((x<570) && (x>555))
-            {
-                if ((y>305) && (y<415))
-                {            
-                    ladderflag=1;
-                }
-                else
-                {
-                    ladderflag = 0;
-                }
-            }
-            else
-            {
-                ladderflag=0;
-            }
-            */
-            
-        //}
+        }
 
         //suicide prevention
         if (y==25)
-        {   
+        {
             if (x>280)
             {
-                x=280;   
+                x=280;
             }
         }
         else
@@ -231,7 +191,7 @@ int main(int argc, char ** argv)
             switch (event.key.keysym.sym)
             {
             case SDLK_LEFT:
-                if (ladderflag == 1)
+                if ((ladderflag != -1)) //&& (floorflag == 0))
                 {
                     x=x;
                     break;
@@ -242,7 +202,7 @@ int main(int argc, char ** argv)
                 }
                 break;
             case SDLK_RIGHT:
-                if (ladderflag == 1)
+                if ((ladderflag != -1)) // && (floorflag == 0))
                 {
                     x=x;
                     break;
@@ -253,24 +213,24 @@ int main(int argc, char ** argv)
                 }
                 break;
             case SDLK_UP:
-                        if (ladderflag == 1)
+                        if (ladderflag != -1)
                         {
                             y=y-5;
                         }
                 break;
-            case SDLK_DOWN:  
-                        if (ladderflag == 1)
+            case SDLK_DOWN:
+                        if (ladderflag != -1)
                         {
                             y=y+5;
                         }
                 break;
             }
             map(renderer);
-            printlocation(x,y,ladderflag);
-            break;
+            printlocation(x,y,ladderflag, ladarr[i].ladderflag);
+            //break;
 
         }
-       
+
 
         SDL_Rect dstrect = { x, y, 20, 35 };
         SDL_Rect dstrect2 = { 60, 40, 60, 100 };
@@ -281,18 +241,16 @@ int main(int argc, char ** argv)
         SDL_RenderCopy(renderer, texture2, NULL, &dstrect2);
         SDL_RenderCopy(renderer, texture3, NULL, &dstrect3);
         SDL_RenderPresent(renderer);
-                
     }
 
     //cleanup parts not used for win message
     SDL_DestroyTexture(texture);
     SDL_DestroyTexture(texture2);
     SDL_DestroyTexture(texture3);
-    SDL_DestroyRenderer(renderer); 
+    SDL_DestroyRenderer(renderer);
     SDL_FreeSurface(image);
     SDL_FreeSurface(image2);
     SDL_FreeSurface(image3);
-
     //win message
     SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imageend = SDL_LoadBMP("end.bmp");
@@ -306,6 +264,114 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(textureend);
     SDL_DestroyRenderer(renderer2);
     SDL_FreeSurface(imageend);
+
+    //win message part 2
+    SDL_Renderer * renderer3 = SDL_CreateRenderer(window, -1, 0);
+    SDL_Surface * imagetest1 = SDL_LoadBMP("test1.bmp");
+    SDL_Texture * texturetest1 = SDL_CreateTextureFromSurface(renderer3, imagetest1);
+    SDL_RenderCopy(renderer3, texturetest1, NULL, NULL);
+    SDL_RenderPresent(renderer3);
+    SDL_Delay(2000);
+    SDL_DestroyTexture(texturetest1);
+    SDL_DestroyRenderer(renderer3);
+    SDL_FreeSurface(imagetest1);
+
+    //win message part 3
+    SDL_Renderer * renderer4 = SDL_CreateRenderer(window, -1, 0);
+    SDL_Surface * imagetest2 = SDL_LoadBMP("test2.bmp");
+    SDL_Texture * texturetest2 = SDL_CreateTextureFromSurface(renderer4, imagetest2);
+    SDL_RenderCopy(renderer4, texturetest2, NULL, NULL);
+    SDL_RenderPresent(renderer2);
+    SDL_Delay(2000);
+    SDL_DestroyTexture(texturetest2);
+    SDL_DestroyRenderer(renderer4);
+    SDL_FreeSurface(imagetest2);
+
+    //win message part 4 (occasionally skips)
+    SDL_Renderer * renderer5 = SDL_CreateRenderer(window, -1, 0);
+    SDL_Surface * imagetest3 = SDL_LoadBMP("test3.bmp");
+    SDL_Texture * texturetest3 = SDL_CreateTextureFromSurface(renderer5, imagetest3);
+    SDL_RenderCopy(renderer5, texturetest3, NULL, NULL);
+    SDL_RenderPresent(renderer5);
+    SDL_Delay(2000);
+    SDL_DestroyTexture(texturetest3);
+    SDL_DestroyRenderer(renderer5);
+    SDL_FreeSurface(imagetest3);
+
+    //win message part 5
+    SDL_Renderer * renderer6 = SDL_CreateRenderer(window, -1, 0);
+    SDL_Surface * imagetest4 = SDL_LoadBMP("test4.bmp");
+    SDL_Texture * texturetest4 = SDL_CreateTextureFromSurface(renderer6, imagetest4);
+    SDL_RenderCopy(renderer6, texturetest4, NULL, NULL);
+    SDL_RenderPresent(renderer6);
+    SDL_Delay(2000);
+    SDL_DestroyTexture(texturetest4);
+    SDL_DestroyRenderer(renderer6);
+    SDL_FreeSurface(imagetest4);
+
+    //mario gif sequence
+    int counter = 0;
+    int delay = 50;
+    while (counter < 20)
+    {
+        //A sequence
+        SDL_Renderer * rendererA = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe0 = IMG_Load ("marioframe/frame_000.png");
+        SDL_Texture * textureA = SDL_CreateTextureFromSurface(rendererA, imageframe0);
+        SDL_RenderCopy(rendererA, textureA, NULL, NULL);
+        SDL_RenderPresent(rendererA);
+        SDL_Delay(delay);
+        SDL_DestroyTexture(textureA);
+        SDL_DestroyRenderer(rendererA);
+        SDL_FreeSurface(imageframe0);
+
+        //B sequence
+        SDL_Renderer * rendererB = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe1 = IMG_Load ("marioframe/frame_001.png");
+        SDL_Texture * textureB = SDL_CreateTextureFromSurface(rendererB, imageframe1);
+        SDL_RenderCopy(rendererB, textureB, NULL, NULL);
+        SDL_RenderPresent(rendererB);
+        SDL_Delay(delay);
+        SDL_DestroyTexture(textureB);
+        SDL_DestroyRenderer(rendererB);
+        SDL_FreeSurface(imageframe1);
+
+        //C sequence
+        SDL_Renderer * rendererC = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe2 = IMG_Load ("marioframe/frame_002.png");
+        SDL_Texture * textureC = SDL_CreateTextureFromSurface(rendererC, imageframe2);
+        SDL_RenderCopy(rendererC, textureC, NULL, NULL);
+        SDL_RenderPresent(rendererC);
+        SDL_Delay(delay);
+        SDL_DestroyTexture(textureC);
+        SDL_DestroyRenderer(rendererC);
+        SDL_FreeSurface(imageframe2);
+
+        //D sequence
+        SDL_Renderer * rendererD = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe3 = IMG_Load ("marioframe/frame_003.png");
+        SDL_Texture * textureD = SDL_CreateTextureFromSurface(rendererD, imageframe3);
+        SDL_RenderCopy(rendererD, textureD, NULL, NULL);
+        SDL_RenderPresent(rendererD);
+        SDL_Delay(delay);
+        SDL_DestroyTexture(textureD);
+        SDL_DestroyRenderer(rendererD);
+        SDL_FreeSurface(imageframe3);
+
+        //E sequence
+        SDL_Renderer * rendererE = SDL_CreateRenderer(window, -1, 0);
+        SDL_Surface * imageframe4 = IMG_Load ("marioframe/frame_004.png");
+        SDL_Texture * textureE = SDL_CreateTextureFromSurface(rendererE, imageframe4);
+        SDL_RenderCopy(rendererE, textureE, NULL, NULL);
+        SDL_RenderPresent(rendererE);
+        SDL_Delay(delay);
+        SDL_DestroyTexture(textureE);
+        SDL_DestroyRenderer(rendererE);
+        SDL_FreeSurface(imageframe4);
+
+        counter++;
+    }
+
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();

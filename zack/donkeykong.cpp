@@ -74,8 +74,10 @@ int main(int argc, char ** argv)
     //variables
     bool quit = false;
     SDL_Event event;
-    int x = 40;     //real mario start
-    int y = 405;    //real mario start
+    //int x = 40;     //real mario start
+    //int y = 405;    //real mario start
+    int x = 280;     //real mario start
+    int y = 25;    //real mario start
     int ladderflag = 0;  //restrict left/right movement while on ladder
 
     struct ladder {
@@ -249,7 +251,6 @@ int main(int argc, char ** argv)
     SDL_FreeSurface(image);
     SDL_FreeSurface(image2);
     SDL_FreeSurface(image3);
-/*
     //win message
     SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imageend = SDL_LoadBMP("end.bmp");
@@ -263,9 +264,7 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(textureend);
     SDL_DestroyRenderer(renderer2);
     SDL_FreeSurface(imageend);
-*/
 
-/*
     //win message part 2
     SDL_Renderer * renderer3 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest1 = SDL_LoadBMP("test1.bmp");
@@ -309,9 +308,7 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(texturetest4);
     SDL_DestroyRenderer(renderer6);
     SDL_FreeSurface(imagetest4);
-*/
 
-/*
     //mario gif sequence
     int counter = 0;
     int delay = 50;
@@ -374,7 +371,6 @@ int main(int argc, char ** argv)
 
         counter++;
     }
-    */
 
     SDL_DestroyWindow(window);
     IMG_Quit();

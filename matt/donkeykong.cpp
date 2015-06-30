@@ -65,23 +65,8 @@ void map(SDL_Renderer * renderer)
     SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
     SDL_RenderFillRect( renderer, &Floor5 );
 
-    //Mario block
-    //SDL_Rect Mario = { 310, 405, 20, 35 };
-    //SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
-    //SDL_RenderFillRect( renderer, &Mario );
-
-    //Donkey Kong himself
-    //SDL_Rect Donkey = { 60, 40, 60, 100 };
-    //SDL_SetRenderDrawColor( renderer, 0xDD, 0x51, 0x00, 0xFF );
-    //SDL_RenderFillRect( renderer, &Donkey );
-
-    //Princess Peach (win condition)
-    //SDL_Rect Peach = { 210, 25, 20, 35 };
-    //SDL_SetRenderDrawColor( renderer, 0xFF, 0xAA, 0xDD, 0xFF );
-    //SDL_RenderFillRect( renderer, &Peach );
-
     //Update screen
-    SDL_RenderPresent( renderer ); 
+    SDL_RenderPresent( renderer );
 }
 
 int main(int argc, char ** argv)
@@ -89,12 +74,11 @@ int main(int argc, char ** argv)
     //variables
     bool quit = false;
     SDL_Event event;
-    int x = 40;     //real mario start
-    int y = 405;    //real mario start
-    //int x = 400;  //start mario testing
-    //int y = 105;  //start mario testing
+    //int x = 40;     //real mario start
+    //int y = 405;    //real mario start
+    int x = 280;     //real mario start
+    int y = 25;    //real mario start
     int ladderflag = 0;  //restrict left/right movement while on ladder
-    //int floorflag = 1;   //stating whether mario is on a floor, to be used in conjunction with ladderflag
 
     struct ladder {
         int xleft;
@@ -103,7 +87,7 @@ int main(int argc, char ** argv)
         int ybottom;
         int ladderflag;
     };
-    
+
     int i;
     struct ladder ladarr[2];    //laddar array
 
@@ -134,7 +118,7 @@ int main(int argc, char ** argv)
     SDL_Texture * texture3 = SDL_CreateTextureFromSurface(renderer, image3);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    
+
     map(renderer);
 
     //main game loop
@@ -144,87 +128,12 @@ int main(int argc, char ** argv)
 
         map(renderer);
 
-        /*
-        if ((x<245) && (x>220))
-        {
-            if ((y>25) && (y<110))
-            {            
-                ladderflag=1;
-            }
-            else
-            {
-                ladderflag = 0;
-            }
-        }
-        else
-        {
-            ladderflag=0;
-        }
-        */
-
-        /*
-        //floorflag check
-        if ((y==405) ^ (y==305) ^ (y==205) ^ (y==105) ^ (y==25))
-        {
-            floorflag=1;
-        }
-        else
-        {
-            floorflag=0;
-        }
-        */
-
-        //win condition
-        if (y==25)
-        {
-            if (x==230)
-            {
-                quit = true;
-            }
-        }
-
-        /*
-        if ((x<570) && (x>555))
-        {
-            if ((y>105) && (y<210))
-            {            
-                ladderflag=1;
-            }
-            else
-            {
-                ladderflag = 0;
-            }
-        }
-        else
-        {
-            ladderflag=0;
-        }
-        */
-
-        /*
-        if ((x<65) && (x>40))
-        {
-            if ((y>205) && (y<310))
-            {            
-                ladderflag=1;
-            }
-            else
-            {
-                ladderflag = 0;
-            }
-        }
-        else
-        {
-            ladderflag=0;
-        }
-        */
-
         for(i=0;i<2;i++)
         {
             if (((x+5)<ladarr[i].xright) && ((x+5)>ladarr[i].xleft))
             {
                 if ((y>ladarr[i].ytop) && (y<ladarr[i].ybottom))
-                {            
+                {
                     ladarr[i].ladderflag=1;
                     printf("Ladder flag is affirmative!!!\n");
                     ladderflag=i;
@@ -244,12 +153,21 @@ int main(int argc, char ** argv)
             }
         }
 
+        //win condition
+        if (y==25)
+        {
+            if (x==230)
+            {
+                quit = true;
+            }
+        }
+
         //suicide prevention
         if (y==25)
-        {   
+        {
             if (x>280)
             {
-                x=280;   
+                x=280;
             }
         }
         else
@@ -300,7 +218,7 @@ int main(int argc, char ** argv)
                             y=y-5;
                         }
                 break;
-            case SDLK_DOWN:  
+            case SDLK_DOWN:
                         if (ladderflag != -1)
                         {
                             y=y+5;
@@ -312,7 +230,7 @@ int main(int argc, char ** argv)
             //break;
 
         }
-       
+
 
         SDL_Rect dstrect = { x, y, 20, 35 };
         SDL_Rect dstrect2 = { 60, 40, 60, 100 };
@@ -323,18 +241,16 @@ int main(int argc, char ** argv)
         SDL_RenderCopy(renderer, texture2, NULL, &dstrect2);
         SDL_RenderCopy(renderer, texture3, NULL, &dstrect3);
         SDL_RenderPresent(renderer);
-                
     }
 
     //cleanup parts not used for win message
     SDL_DestroyTexture(texture);
     SDL_DestroyTexture(texture2);
     SDL_DestroyTexture(texture3);
-    SDL_DestroyRenderer(renderer); 
+    SDL_DestroyRenderer(renderer);
     SDL_FreeSurface(image);
     SDL_FreeSurface(image2);
     SDL_FreeSurface(image3);
-/*
     //win message
     SDL_Renderer * renderer2 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imageend = SDL_LoadBMP("end.bmp");
@@ -348,9 +264,7 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(textureend);
     SDL_DestroyRenderer(renderer2);
     SDL_FreeSurface(imageend);
-*/
 
-/*
     //win message part 2
     SDL_Renderer * renderer3 = SDL_CreateRenderer(window, -1, 0);
     SDL_Surface * imagetest1 = SDL_LoadBMP("test1.bmp");
@@ -394,9 +308,7 @@ int main(int argc, char ** argv)
     SDL_DestroyTexture(texturetest4);
     SDL_DestroyRenderer(renderer6);
     SDL_FreeSurface(imagetest4);
-*/
 
-/*
     //mario gif sequence
     int counter = 0;
     int delay = 50;
@@ -459,7 +371,6 @@ int main(int argc, char ** argv)
 
         counter++;
     }
-    */
 
     SDL_DestroyWindow(window);
     IMG_Quit();
